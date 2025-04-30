@@ -41,7 +41,7 @@ jobs:
 
     - name: Code Quality
       run: |
-        poetry run flake8 .
+        poetry run flake8 app/ tests/
 
     - name: Run Tests
       run: |
