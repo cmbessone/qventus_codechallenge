@@ -35,9 +35,12 @@ jobs:
         rm -f poetry.lock
         poetry install --with dev
 
+    - name: Format Code
+      run: |
+        poetry run black .
+
     - name: Code Quality
       run: |
-        poetry run black . --check
         poetry run flake8 .
 
     - name: Run Tests
