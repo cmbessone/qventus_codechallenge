@@ -2,60 +2,52 @@ name: CI - Parts API
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 -
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
 
-    - name: Configure Poetry
-      run: |
-        poetry config virtualenvs.create true
-        poetry config virtualenvs.in-project true
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
 
-    - name: Install dependencies
-      run: |
-        rm -f poetry.lock
-        poetry install --with dev
+      - name: Install dependencies (incl. dev)
+        run: poetry install --with dev
 
-    - name: Format Code
-      run: |
-        poetry run black .
+      - name: Run Black (code formatter)
+        run: poetry run black . --check
 
-    - name: Code Quality
-      run: |
-        poetry run flake8 app/ tests/
+      - name: Run Flake8 (code linter)
+        run: poetry run flake8 app/ tests/
 
-    - name: Run Tests
-      run: |
-        poetry run pytest -v --maxfail=1 --disable-warnings
+      - name: Run Pytest (unit tests)
+        run: poetry run pytest -v --maxfail=1 --disable-warnings
 
-    - name: Verify Build
-      run: |
-        poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 &
-        sleep 5
-        curl -f http://localhost:8000/ || exit 1
+      - name: Verify app boot
+        run: |
+          poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+          curl -f http://localhost:8000/ || exit 1
 
-    - name: Upload test results
-      if: success()
-      uses: actions/upload-artifact@v4
-      with:
-        name: pytest-results
-        path: ./tests/
+      - name: Upload test results
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results
+          path: ./tests/
