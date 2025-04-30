@@ -1,6 +1,7 @@
 # Parts API
 
-![CI](https://github.com/montevideolabs/parts_api/actions/workflows/ci.yml/badge.svg) 
+[![CI](https://github.com/cmbessone/qventus_codechallenge/actions/workflows/ci.yml/badge.svg)](https://github.com/cmbessone/qventus_codechallenge/actions/workflows/ci.yml)
+
 
 A FastAPI service for managing parts inventory with SQLite database.
 
