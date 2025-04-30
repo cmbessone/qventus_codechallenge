@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String
 from app.database import Base
 
 
@@ -10,4 +10,12 @@ class Part(Base):
     sku = Column(String(30), unique=True, nullable=False)
     description = Column(String(1024))
     weight_ounces = Column(Integer)
-    is_active = Column(Boolean, default=True)
+    _is_active = Column("is_active", Integer, default=1)  # 1 = True, 0 = False
+
+    @property
+    def is_active(self) -> bool:
+        return self._is_active == 1
+
+    @is_active.setter
+    def is_active(self, value: bool):
+        self._is_active = 1 if value else 0
