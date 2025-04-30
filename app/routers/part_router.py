@@ -29,10 +29,7 @@ def get_part(part_id: int, db: Session = Depends(get_db)):
 def create_part(part: PartCreate, db: Session = Depends(get_db)):
     created_part = part_service.add_part(db, part)
     if created_part is None:
-        raise HTTPException(
-            status_code=400,
-            detail="Part with this SKU already exists"
-        )
+        raise HTTPException(status_code=400, detail="Part with this SKU already exists")
     return created_part
 
 

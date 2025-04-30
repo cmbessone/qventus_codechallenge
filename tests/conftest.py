@@ -13,8 +13,7 @@ TEST_SQLALCHEMY_DATABASE_URL = "sqlite:///file::memory:?cache=shared"
 @pytest.fixture(scope="session")
 def test_engine():
     engine = create_engine(
-        TEST_SQLALCHEMY_DATABASE_URL,
-        connect_args={"check_same_thread": False}
+        TEST_SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
     )
     Base.metadata.create_all(bind=engine)
     yield engine
@@ -23,11 +22,7 @@ def test_engine():
 
 @pytest.fixture(scope="session")
 def test_session_factory(test_engine):
-    return sessionmaker(
-        autocommit=False,
-        autoflush=False,
-        bind=test_engine
-    )
+    return sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
 
 @pytest.fixture(autouse=True)
@@ -58,7 +53,7 @@ def client(test_session_factory):
             yield db
         finally:
             db.close()
-    
+
     app.dependency_overrides[get_db] = override_get_db
     with TestClient(app) as test_client:
         yield test_client

@@ -28,5 +28,6 @@ def top_words(db: Session, top_n: int = 5):
     parts = part_repository.get_all_parts(db)
     words = " ".join([p.description or "" for p in parts]).lower().split()
     counter = Counter(words)
-    return [{"word": word, "count": count} 
-            for word, count in counter.most_common(top_n)]
+    return [
+        {"word": word, "count": count} for word, count in counter.most_common(top_n)
+    ]
