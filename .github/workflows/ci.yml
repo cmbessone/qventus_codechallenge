@@ -30,8 +30,11 @@ jobs:
         poetry config virtualenvs.create true
         poetry config virtualenvs.in-project true
 
+    - name: Generate poetry.lock
+      run: poetry lock --no-update
+
     - name: Install dependencies
-      run: poetry install --no-interaction
+      run: poetry install --no-interaction --no-root
 
     - name: Code Quality
       run: |
