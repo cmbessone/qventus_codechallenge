@@ -1,5 +1,7 @@
 # Parts API
 
+![CI](https://github.com/montevideolabs/parts_api/actions/workflows/ci.yml/badge.svg) 
+
 A FastAPI service for managing parts inventory with SQLite database.
 
 ## Requirements
@@ -19,10 +21,21 @@ curl -sSL https://install.python-poetry.org | python3 -
 poetry install
 ```
 
-3. Run the development server:
+3. Activate the virtual environment
+```bash
+poetry shell
+```
+
+4. Run the development server:
 ```bash
 poetry run uvicorn app.main:app --reload
 ```
+
+5. Preload sample data:
+```bash
+poetry run preload-data
+```
+
 
 ## Development
 
@@ -65,6 +78,7 @@ Once the server is running, you can access:
 
 The project uses GitHub Actions for CI/CD:
 - Runs on every push to main and pull requests
-- Performs code quality checks (black, flake8)
-- Runs tests
-- Verifies application build
+- Checks code format (Black)
+- Performs linting (Flake8)
+- Runs tests (Pytest)
+- Verifies that the application can boot via uvicorn

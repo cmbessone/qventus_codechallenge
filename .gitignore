@@ -5,38 +5,39 @@ __pycache__/
 *.pyd
 *.so
 
-# VSCode settings
+# IDEs / Editors
 .vscode/
+.idea/
 
 # macOS
 .DS_Store
 
-# Virtual envs 
+# Virtual environments
 .venv/
 env/
 venv/
 
-# Pytest cache
+# Poetry (optional to ignore lock file — remove if you want to commit it)
+# poetry.lock
+
+# Pytest / mypy / profiling / coverage / tox
 .cache/
 .pytest_cache/
-
-# mypy / coverage / tox / profiling
 .mypy_cache/
 .coverage
 htmlcov/
 .tox/
 .prof
+pytestdebug.log
 
 # Logs
 *.log
 
-# IDEs
-.idea/
-
 # Test outputs
 test-output/
 
-# Database files
+# SQLite / temp DB files
 *.db
 test.db
 parts.db
+file::memory:
