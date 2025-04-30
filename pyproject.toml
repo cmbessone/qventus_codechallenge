@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "FastAPI service for managing parts inventory"
 authors = ["Cristian M. Bessone <cristianbessone@email.com>"]
 readme = "README.md"
+packages = [
+    { include = "app" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"

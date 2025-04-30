@@ -33,7 +33,7 @@ jobs:
     - name: Install dependencies
       run: |
         rm -f poetry.lock
-        poetry install
+        poetry install --with dev
 
     - name: Code Quality
       run: |
