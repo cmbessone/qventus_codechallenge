@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class PartBase(BaseModel):
@@ -7,6 +7,8 @@ class PartBase(BaseModel):
     description: str
     weight_ounces: int
     is_active: bool = True
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PartCreate(PartBase):
@@ -19,6 +21,3 @@ class PartUpdate(PartBase):
 
 class PartOut(PartBase):
     id: int
-
-    class Config:
-        from_attributes = True

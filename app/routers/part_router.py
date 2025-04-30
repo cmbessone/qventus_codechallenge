@@ -27,7 +27,10 @@ def get_part(part_id: int, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=PartOut)
 def create_part(part: PartCreate, db: Session = Depends(get_db)):
-    return part_service.add_part(db, part)
+    created_part = part_service.add_part(db, part)
+    if created_part is None:
+        raise HTTPException(status_code=400, detail="Part with this SKU already exists")
+    return created_part
 
 
 @router.put("/{part_id}", response_model=PartOut)

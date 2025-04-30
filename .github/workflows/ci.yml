@@ -1,0 +1,42 @@
+name: CI - Parts API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Run Tests
+      run: |
+        poetry run pytest -v --maxfail=1 --disable-warnings
+
+    - name: Upload test results (optional - nice touch)
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-results
+        path: ./tests/

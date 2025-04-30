@@ -3,7 +3,8 @@ Author:Cristian Martin Bessone
 Email: cristian.bessone@gmail.com
 Project: Code Challenge Qventus
 Created: 25-APRIL-2025
-Description: FastAPI service to allow CRUD operations for managing parts via RESTful API.
+Description: FastAPI service to allow CRUD operations
+for managing parts via RESTful API.
 """
 
 from fastapi import FastAPI
