@@ -1,49 +1,70 @@
 # Parts API
 
-![CI](https://github.com/montevideolabs/parts_api/actions/workflows/ci.yml/badge.svg)
+A FastAPI service for managing parts inventory with SQLite database.
 
-FastAPI  project for Parts Management with SQLAlchemy and Pydantic.
-## Prerequisites
+## Requirements
 
-- Python 3.13 installed
-- Poetry installed (dependency manager)
+- Python 3.11
+- Poetry (Python package manager)
 
-You can install Poetry easily with:
+## Setup
 
+1. Install Poetry:
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-## Installation
-
-Clone the project and follow the steps:
-
+2. Install dependencies:
 ```bash
 poetry install
 ```
 
-Run tests:
+3. Run the development server:
+```bash
+poetry run uvicorn app.main:app --reload
+```
+
+## Development
+
+- Format code:
+```bash
+poetry run black .
+```
+
+- Run linting:
+```bash
+poetry run flake8 .
+```
+
+- Run tests:
 ```bash
 poetry run pytest
 ```
 
-Preload Test Data:
-```bash
-poetry run python -m scripts.preload_data
+## API Documentation
+
+Once the server is running, you can access:
+- API documentation: http://localhost:8000/docs
+- Alternative API documentation: http://localhost:8000/redoc
+
+## Project Structure
+
+```
+.
+├── app/                    # Application package
+│   ├── models/            # SQLAlchemy models
+│   ├── routers/           # FastAPI route handlers
+│   ├── schemas/           # Pydantic models
+│   ├── services/          # Business logic
+│   └── repository/        # Database operations
+├── tests/                 # Test files
+└── scripts/               # Utility scripts
 ```
 
-Run the API Locally
-```bash
-poetry run uvicorn app.main:app --reload
-```
-## Technology Stack
+## GitHub Actions
 
-- FastAPI (Web Framework)
-
-- SQLAlchemy (ORM)
-
-- Pydantic (Validations)
-
-- Pytest (Testing)
-
-- Poetry (Dependency Manager)
+The project uses GitHub Actions for CI/CD:
+- Runs on every push to main and pull requests
+- Performs code quality checks (black, flake8)
+- Runs tests
+- Verifies application build

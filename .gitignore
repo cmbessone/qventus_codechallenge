@@ -30,13 +30,13 @@ htmlcov/
 # Logs
 *.log
 
-# Poetry
-poetry.lock
-
-
 # IDEs
 .idea/
 
-
 # Test outputs
 test-output/
+
+# Database files
+*.db
+test.db
+parts.db
