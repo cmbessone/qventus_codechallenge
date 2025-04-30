@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.schemas.part_schema import PartCreate, PartUpdate
 from app.repository import part_repository
+from collections import Counter
 
 
 def list_parts(db: Session):
@@ -25,10 +26,7 @@ def remove_part(db: Session, part_id: int) -> bool:
 
 def top_words(db: Session, top_n: int = 5):
     parts = part_repository.get_all_parts(db)
-    from collections import Counter
-
     words = " ".join([p.description or "" for p in parts]).lower().split()
     counter = Counter(words)
-    return [
-        {"word": word, "count": count} for word, count in counter.most_common(top_n)
-    ]
+    return [{"word": word, "count": count} 
+            for word, count in counter.most_common(top_n)]
